@@ -23,9 +23,10 @@ dta <- read.csv("activity.csv")
 dta <- dta %>%
         mutate(Date = as.Date(as.character(date)),
                 Weekday = weekdays(Date), 
-                Weekend = ifelse(Weekday == "Saturday" | Weekday == "Sunday", 1, 0)) %>%
+                Weekend = ifelse(Weekday == "Saturday" | Weekday == "Sunday", "Weekend", "Weekday")) %>%
         select(steps, interval, Date, Weekday, Weekend)
 dta$interval <- as.factor(dta$interval)
+dta$Weekend <- as.factor(dta$Weekend)
 ```
 
 ## What is mean total number of steps taken per day?
@@ -60,7 +61,7 @@ And here is a histogram showing the mean number of steps per day:
 hist(dta_sums$steps, main = "Daily Steps", xlab = "Steps")
 ```
 
-![unnamed-chunk-4-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-4-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)
 
 These are the mean and median steps per day (across all days):
 
@@ -95,7 +96,7 @@ plot(as.numeric(as.character(dta_patt$interval)), dta_patt$MeanSteps,
         xlab = "Millitary Time", ylab = "Average Steps")
 ```
 
-![unnamed-chunk-6-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-6-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)
 
 This is the five minute interval with the most steps:
 
@@ -141,38 +142,28 @@ dta_editmiss2 <- dta_editmiss %>%
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-I will create a colored line plot to answer this question. Note that I have already created weekend and weekday
-indicator variables. The code below performs a few operations that are necessary prior to making the plot.
+I will create a panel plot to answer this question. The code below finds the mean number of steps for every interval.
 
 ```r
 dta_finalplot <- dta_editmiss2 %>%
         group_by(interval, Weekend) %>%
-        summarize(StepsEdit = mean(StepsEdit))
-dta_finalplotEnd <- filter(dta_finalplot, Weekend == 1)
-dta_finalplotDay <- filter(dta_finalplot, Weekend == 0)
-dta_finalplot2 <- merge(dta_finalplotEnd, dta_finalplotDay,
-        by.x = "interval", by.y = "interval")
-dta_finalplot3 <- dta_finalplot2 %>%
-        rename(WeekEndSteps = StepsEdit.x, WeekDaySteps = StepsEdit.y) %>%
-        mutate(Interval = as.numeric(as.character(interval))) %>%
-        select(Interval, WeekEndSteps, WeekDaySteps) %>%
-        arrange(Interval)
+        summarize(StepsEdit = mean(StepsEdit)) %>%
+        mutate(Interval = as.numeric(as.character(interval)))
 ```
 
-Create a colored line plot using the ggplot2 graphics package.
+
+The plot below shows the average number of steps within each time interval. The plot on top shows data from weekdays whereas the plot on bottom displays data from weekends.
+
+The graphs show a noticeable - though not drastic - difference in activity patters between weekend days and weekdays.
 
 ```r
-g <- ggplot(data=dta_finalplot3,
-        mapping = aes(Interval, WeekDaySteps)) +
-        ggtitle("Steps: Comparing Weekdays to Weekends") +
-        xlab("Millitary Time") +
+g <- ggplot(data=dta_finalplot,
+        mapping = aes(Interval, StepsEdit)) +
+        xlab("Interval") +
         ylab("Steps") +
-        geom_line(color="Blue") +
-        geom_line(mapping=aes(Interval, WeekEndSteps), color="Orange") +
-        annotate("text", x=1500, y=225, color="Blue", label = "Weekday Steps") +
-        annotate("text", x=1750, y=210, color="Orange", label = "Weekend Steps")
+        geom_line(aes(Interval, StepsEdit), color="Blue") +
+        facet_grid(Weekend ~ .)
 g
 ```
 
-![unnamed-chunk-11-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-11-1.png)
-
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)

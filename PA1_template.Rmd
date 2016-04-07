@@ -1,15 +1,19 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
+author: Duncan Sallstrom
 output: 
   html_document:
     keep_md: true
 ---
 
+This document presents a few analyses performed on individual movement data. In short, personal
+movement trackers were given to test subjects, and the data used here are sourced from those personal
+movement trackers. This code will answer several questions using the data.
 
 ## Loading and preprocessing the data
 
 First, load prerequisite packages ggplot2 and dplyr. You must have these installed to run the program.
-```{r, results="hide"}
+```{r, warning=FALSE, message=FALSE}
 library(dplyr)
 library(ggplot2)
 ```
@@ -66,7 +70,8 @@ plot(as.numeric(as.character(dta_patt$interval)), dta_patt$MeanSteps,
 
 This is the five minute interval with the most steps:
 ```{r}
-filter(dta_patt, MeanSteps == max(dta_patt$MeanSteps))
+f <- filter(dta_patt, MeanSteps == max(dta_patt$MeanSteps))
+f[1,1]
 ```
 
 

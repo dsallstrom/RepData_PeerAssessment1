@@ -15,7 +15,7 @@ library(ggplot2)
 ```
 
 This code loads the dataset and adds performs some operations to make later analyses easier. I reformat the
-Date variable, created a weekday/weekend indicator, and drop unneeded variables.
+date variable, create a weekday/weekend indicator, and I drop unneeded variables.
 ```{r}
 setwd("C:/Users/duncans/Dropbox/Programming/R_WDir")
 dta <- read.csv("activity.csv")
@@ -29,7 +29,7 @@ dta$interval <- as.factor(dta$interval)
 
 ## What is mean total number of steps taken per day?
 
-For brevity here, I report mean number of steps per the first five days. Dataset dta_sums has this information
+For brevity, I report mean number of steps per the first five days. Dataset dta_sums has this information
 for all days.
 ```{r}
 dta_sums <- dta %>% 

@@ -61,7 +61,7 @@ And here is a histogram showing the mean number of steps per day:
 hist(dta_sums$steps, main = "Daily Steps", xlab = "Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)
+![unnamed-chunk-4-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-4-1.png)
 
 These are the mean and median steps per day (across all days):
 
@@ -96,7 +96,7 @@ plot(as.numeric(as.character(dta_patt$interval)), dta_patt$MeanSteps,
         xlab = "Millitary Time", ylab = "Average Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)
+![unnamed-chunk-6-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-6-1.png)
 
 This is the five minute interval with the most steps:
 
@@ -166,4 +166,4 @@ g <- ggplot(data=dta_finalplot,
 g
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)
+![unnamed-chunk-12-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-12-1.png)

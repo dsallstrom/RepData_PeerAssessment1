@@ -166,4 +166,4 @@ g <- ggplot(data=dta_finalplot,
 g
 ```
 
-![unnamed-chunk-12-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-12-1.png)
+![unnamed-chunk-11-1](https://github.com/dsallstrom/RepData_PeerAssessment1/blob/master/unnamed-chunk-11-1.png)
